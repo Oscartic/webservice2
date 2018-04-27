@@ -1,0 +1,2 @@
+module Rest::UsersHelper
+end

@@ -22,9 +22,18 @@ class UsersController < ApplicationController
   end
 
   def update
+    if @user.update(user_params)
+      flash[:notice] = 'Datos de Usuario actualizados.'
+      redirect_to users_path
+    else
+      render 'edit'
+    end
   end
 
   def destroy
+    @user.destroy
+    flash[:notice] = 'Usuario eliminado de la base de datos'
+    redirect_to users_path
   end
   private
   def set_user
