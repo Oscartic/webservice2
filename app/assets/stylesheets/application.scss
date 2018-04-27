@@ -14,4 +14,8 @@
  *= require_self
  *= require font-awesome
  */
-@import "bootstrap"
+@import "bootstrap";
+
+.images-users {
+  max-width: 120px;
+}

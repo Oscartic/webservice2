@@ -4,7 +4,7 @@
       %h1 Users#index
       %p Find me in app/views/users/index.html.haml
     .col-md-2.ml-auto
-      = link_to("Crear Usuario", users_path, class: 'btn btn-primary mt-3')
+      = link_to("Crear Usuario", new_user_path, class: 'btn btn-primary mt-3', remote: true)
   .row
     .col
       %table.table
@@ -13,15 +13,22 @@
             %th{'scope' => 'col'} id
             %th{'scope' => 'col'} Mail
             %th{'scope' => 'col'} Image
-            %th{'scope' => 'col'} Actions
+            %th{'scope' => 'col', 'colspan' => 2} Actions
         %tbody
           -if @users.present?
             -@users.each do |user|
               %tr
+                %td= user.id
+                %td
+                  %img{'src' => "data:image/jpg; base64,#{user.image}", 'class' => 'images-users'}
                 %td= user.mail
-                %td= user.image
-                %td= buttons
+                %td
+                  = link_to(edit_user_path(user.id), remote: 'true') do
+                    #{fa_icon 'pencil'} Editar
+                %td
+                  = link_to(user_path(user.id), remote: 'true', method: 'delete', data: { confirm: "¡PRECAUCIÓN!\n¿Desea eliminar la habilidad #{user.mail}?"}) do
+                    #{fa_icon 'trash'} Eliminar
           -else
             %tr.table-warning
-              %td{'colspan' => 4} No Hay usuarios registrados
+              %td{'colspan' => 5} No Hay usuarios registrados
 

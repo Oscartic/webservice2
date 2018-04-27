@@ -1,0 +1,5 @@
+<% if @review.errors.any? %>
+  $('<%= j render partial: "form", locals: {url: reviews_path, method: "POST"} %>').modal();
+<% else %>
+  alert('<%= @review.errors.full_messages[0] %>');
+<% end %>

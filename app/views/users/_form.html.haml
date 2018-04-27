@@ -1,0 +1,22 @@
+.modal.fade{:role => 'dialog'}
+  .modal-dialog.modal-lg
+    .modal-content
+      .modal-header
+        %h5.modal-title Agregar Usuario
+        %button.close{'type'=> "button", 'data-dismiss'=> "modal", 'aria-label' => "Close"}
+          %span{'aria-hidden' => 'true'} &times;
+      -if @user.errors.any?
+        #error_explanation
+        .alert.alert-danger
+          .header= "#{pluralize(@user.errors.count, "error")} prohibited this contract from being saved:"
+          %ul.list
+          - @user.errors.full_messages.each do |message|
+            %li= message
+      .modal-body
+        = form_for(:user, url: url, method: method, :authenticity_token => true, remote: true) do |f|
+          .form-group
+            = f.text_field(:mail, placeholder: 'Mail', class: 'form-control')
+          .form-group
+            = f.file_field(:image, placeholder: 'Descripción',class: 'form-control')
+          = f.submit 'Guardar', class: 'btn btn-primary'
+          %button.btn.btn-secondary{:type => 'button', 'data-dismiss' => "modal"} Cancelar
