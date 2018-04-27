@@ -1,0 +1,27 @@
+.container
+  .row
+    .col-md-4
+      %h1 Users#index
+      %p Find me in app/views/users/index.html.haml
+    .col-md-2.ml-auto
+      = link_to("Crear Usuario", users_path, class: 'btn btn-primary mt-3')
+  .row
+    .col
+      %table.table
+        %thead.thead-dark
+          %tr
+            %th{'scope' => 'col'} id
+            %th{'scope' => 'col'} Mail
+            %th{'scope' => 'col'} Image
+            %th{'scope' => 'col'} Actions
+        %tbody
+          -if @users.present?
+            -@users.each do |user|
+              %tr
+                %td= user.mail
+                %td= user.image
+                %td= buttons
+          -else
+            %tr.table-warning
+              %td{'colspan' => 4} No Hay usuarios registrados
+
