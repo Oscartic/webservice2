@@ -13,9 +13,9 @@ class Rest::UsersController < ApplicationController
       same = a.each_char.zip(b.each_char).select { |origin, request| origin == request}.size
       percent = ((length - same) / a.size.to_f).round(2)
       if percent < 0.11
-        render json: {message: "OK #{percent}"}, status: :ok
+        render json: {message: "OK"}, status: :ok
       else
-        render json: {message: "No Autorizado #{percent} #{a.size}"}, status: :not_found
+        render json: {message: "No Autorizadog"}, status: :unauthorized
       end
     else
       render json: {message: "No Autorizado"}, status: :not_found
