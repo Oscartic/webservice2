@@ -1,18 +1,20 @@
+#top-webservice2
 .container
   .row
     .col-md-4
-      %h1 Users#index
-      %p Find me in app/views/users/index.html.haml
+      %h1 Mantenedor
+      %h2 Challenge ACID
+      %p Mantenedor WebService2
     .col-md-2.ml-auto
-      = link_to("Crear Usuario", new_user_path, class: 'btn btn-primary mt-3', remote: true)
+      = link_to("Crear Usuario", new_user_path, class: 'btn btn-dark mt-3', remote: true)
   .row
     .col
       %table.table
         %thead.thead-dark
           %tr
             %th{'scope' => 'col'} id
-            %th{'scope' => 'col'} Mail
             %th{'scope' => 'col'} Image
+            %th{'scope' => 'col'} Mail
             %th{'scope' => 'col', 'colspan' => 2} Actions
         %tbody
           -if @users.present?
@@ -20,13 +22,13 @@
               %tr
                 %th{'scope' => 'row'}= user.id
                 %td
-                  %img{'src' => "data:image/jpg; base64,#{user.image}", 'class' => 'images-users'}
+                  %img{'src' => "data:image/jpg;base64,#{user.image}", 'class' => 'images-users'}
                 %td= user.mail
                 %td
-                  = link_to(edit_user_path(user.id), remote: 'true') do
+                  = link_to(edit_user_path(user.id), remote: 'true', class: 'btn btn-success btn-sm') do
                     #{fa_icon 'pencil'} Editar
                 %td
-                  = link_to(user_path(user.id), remote: 'true', method: 'delete', data: { confirm: "¡PRECAUCIÓN!\n¿Desea eliminar la habilidad #{user.mail}?"}) do
+                  = link_to(user_path(user.id), remote: 'true', method: 'delete', class: 'btn btn-secondary btn-sm', data: { confirm: "¡PRECAUCIÓN!\n¿Desea eliminar la habilidad #{user.mail}?"}) do
                     #{fa_icon 'trash'} Eliminar
           -else
             %tr.table-warning

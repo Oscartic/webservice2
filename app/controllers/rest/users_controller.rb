@@ -11,9 +11,9 @@ class Rest::UsersController < ApplicationController
       b = params[:image]
       length = [a.size, b.size].max
       same = a.each_char.zip(b.each_char).select { |origin, request| origin == request}.size
-      percent = (length - same) / a.size.to_f
-      if percent.round(2) >= 0.90
-        render json: {message: "OK #{percent.round(2)}"}, status: :ok
+      percent = ((length - same) / a.size.to_f).round(2)
+      if percent < 0.11
+        render json: {message: "OK #{percent}"}, status: :ok
       else
         render json: {message: "No Autorizado #{percent} #{a.size}"}, status: :not_found
       end
