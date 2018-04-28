@@ -18,8 +18,13 @@ class UsersController < ApplicationController
   end
 
   def update
-    uploaded_io = User.image_capture(user_params[:image])
-    @user.attributes = {:mail => user_params[:mail], :image => uploaded_io}
+    image_db = user_params[:image]
+    if image_db
+      uploaded_io = User.image_capture(user_params[:image])
+      @user.attributes = {:mail => user_params[:mail], :image => uploaded_io}
+    else
+      @user.attributes = {:mail => user_params[:mail]}
+    end
     if @user.save
       flash[:notice] = 'Datos de Usuario actualizados.'
       redirect_to users_path
