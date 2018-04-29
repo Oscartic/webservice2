@@ -1,0 +1,5 @@
+<% if @user.errors.empty? %>
+$('<%= j render partial: "form", locals:{url: user_path(@user), method: "PUT"} %>').modal();
+<% else %>
+  alert('<%= @user.errors.full_messages[0] %>');
+<% end %>

@@ -13,7 +13,7 @@
           - @user.errors.full_messages.each do |message|
             %li= message
       .modal-body
-        = form_for(:user, url: url, method: method, :authenticity_token => true, remote: true) do |f|
+        = form_for(@user, url: url, method: method, :authenticity_token => true, remote: true) do |f|
           .form-group
             = f.text_field(:mail, placeholder: 'Mail', class: 'form-control')
           .form-group

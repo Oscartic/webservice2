@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:edit, :update, :destroy]
+  before_action :set_user, only: [:update, :destroy]
 
   def index
     @users = User.all.order(:id)
@@ -8,29 +8,28 @@ class UsersController < ApplicationController
     @user = User.new
   end
   def create
-    @user = User.new(user_params)
-    uploaded_io = User.image_capture(user_params[:image])
-    @user.image = uploaded_io
-    if @user.save
-      flash[:notice] = 'Usuario creado exitosamente.'
+    if user_params[:mail] != '' && user_params[:image] != nil
+      uploaded_io = User.image_capture(user_params[:image])
+      @user.image = uploaded_io
+      if @user.save
+        flash[:notice] = 'Usuario creado exitosamente.'
+        redirect_to users_path
+      end
+    else
+      flash[:alert] = 'Error en la creación de usuario. Se requiere que proporcione información de todos los campos.'
       redirect_to users_path
     end
   end
 
   def update
-    image_db = user_params[:image]
-    if image_db
+    if user_params[:image]
       uploaded_io = User.image_capture(user_params[:image])
-      @user.attributes = {:mail => user_params[:mail], :image => uploaded_io}
+      @user.update(:mail => user_params[:mail], :image => uploaded_io)
     else
-      @user.attributes = {:mail => user_params[:mail]}
+      @user.update(:mail => user_params[:mail])
     end
-    if @user.save
-      flash[:notice] = 'Datos de Usuario actualizados.'
-      redirect_to users_path
-    else
-      render 'edit'
-    end
+    flash[:notice] = 'Datos de Usuario actualizados.'
+    redirect_to users_path
   end
 
   def destroy

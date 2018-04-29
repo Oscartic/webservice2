@@ -6,23 +6,18 @@ class Rest::UsersController < ApplicationController
     render json: @users
   end
   def verify_user
-    if @user
-      a = @user.image
-      b = params[:image]
-      length = [a.size, b.size].max
-      same = a.each_char.zip(b.each_char).select { |origin, request| origin == request}.size
-      percent = ((length - same) / a.size.to_f).round(2)
-      if percent < 0.11
-        render json: {message: "OK"}, status: :ok
-      else
-        render json: {message: "No Autorizadog"}, status: :unauthorized
-      end
+    storage = @user.image
+    post = params[:image]
+    percent = User.verify_string_images(storage, post)
+
+    if percent < 0
+      render json: {message: "OK"}, status: :ok
     else
-      render json: {message: "No Autorizado"}, status: :not_found
+      render json: {message: "No Autorizado"}, status: :unauthorized
     end
   end
   private
-  def set_user
-    @user = User.find_by(mail: params[:mail])
-  end
+    def set_user
+      @user = User.find_by(mail: params[:mail])
+    end
 end
