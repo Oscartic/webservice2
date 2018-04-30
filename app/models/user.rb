@@ -8,7 +8,6 @@ class User < ApplicationRecord
     end
     read_img = open("./public/uploads/#{uploaded_io.original_filename}") {|f| f.read}
     file_contents = Base64.strict_encode64(read_img)
-    file_contents
   end
 
   def self.verify_string_images(storage, post)

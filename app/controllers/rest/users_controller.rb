@@ -10,7 +10,7 @@ class Rest::UsersController < ApplicationController
     post = params[:image]
     percent = User.verify_string_images(storage, post)
 
-    if percent < 0
+    if percent < 0.10
       render json: {message: "OK"}, status: :ok
     else
       render json: {message: "No Autorizado"}, status: :unauthorized

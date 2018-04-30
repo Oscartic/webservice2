@@ -1,11 +1,11 @@
 #top-webservice2
 .container.mt-4
   .row
-    .col-md-4
+    .col-md-6
       %h1 WebService2
       %h3 Challenge ACID - Mantenedor
     .col-md-2.ml-auto
-      = link_to("Crear Usuario", new_user_path, class: 'btn btn-dark mt-3', remote: true)
+      = link_to("Crear Usuario", new_user_path, class: 'btn btn-dark mt-3 mb-2', remote: true)
   .row
     .col
       = render partial: 'layouts/messages'

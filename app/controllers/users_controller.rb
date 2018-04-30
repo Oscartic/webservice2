@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:update, :destroy]
+  before_action :set_user, only: [:create, :edit, :update, :destroy]
 
   def index
     @users = User.all.order(:id)
@@ -8,9 +8,11 @@ class UsersController < ApplicationController
     @user = User.new
   end
   def create
+    @user = User.new(user_params)
     if user_params[:mail] != '' && user_params[:image] != nil
-      uploaded_io = User.image_capture(user_params[:image])
-      @user.image = uploaded_io
+      file_contents = User.image_capture(user_params[:image])
+      Rails.logger.info "file_contents" + @user.inspect + " ////////////"
+      @user.image = file_contents
       if @user.save
         flash[:notice] = 'Usuario creado exitosamente.'
         redirect_to users_path

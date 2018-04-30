@@ -2,7 +2,11 @@
   .modal-dialog.modal-lg
     .modal-content
       .modal-header
-        %h5.modal-title Agregar Usuario
+        -if @user.new_record?
+          %h5.modal-title #{fa_icon "user-plus"} Nuevo Usuario
+        -else
+          %h5.modal-title #{fa_icon "edit"} Editar Usuario
+
         %button.close{'type'=> "button", 'data-dismiss'=> "modal", 'aria-label' => "Close"}
           %span{'aria-hidden' => 'true'} &times;
       -if @user.errors.any?
